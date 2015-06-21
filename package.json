@@ -1,11 +1,13 @@
 {
-  "name": "isomorphic-apps",
+  "name": "isomorphic-apps-presentation",
   "description": "Presentation about creating isomorphic apps with React and Flux",
   "version": "0.0.1",
   "author": {
-    "name": "Alexander Ivantsov <alexivantsov@ya.ru>",
-    "url": "http://aivantsov.com/"
+    "name": "Alexander Ivantsov",
+    "email": "alexivantsov@ya.ru",
+    "url": "http://aivantsov.com"
   },
+  "homepage": "http://shpuntik.github.io/isomorphic-apps-presentation",
   "licenses": "MIT",
   "keywords": [
     "isomorphic",
