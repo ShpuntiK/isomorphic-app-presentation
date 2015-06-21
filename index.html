@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Изоморфные приложения на React и Flux</title>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=792, user-scalable=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+	<link rel="stylesheet" href="node_modules/shower-ribbon/styles/screen.css">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body class="list">
+	<header class="caption">
+		<h1>Изоморфные приложения на React и Flux</h1>
+	</header>
+
+	<section class="slide cover" id="intro"><div>
+		<h2>Изоморфные приложения на React и Flux</h2>
+		<p>Александр Иванцов</p>
+	</div></section>
+
+	<section class="slide" id="isomophicDiagram"><div>
+		<h2>Изоморфные приложения</h2>
+		<img src="pictures/isomorphic-diagram.png">
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Плюсы</h2>
+		<ul>
+			<li class="next">никаких проблем с SEO (поисковики получают обычную статическую страницу)</li>
+			<li class="next">нет дублирования кода</li>
+			<li class="next">лучше для пользователя</li>
+		</ul>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Примеры фреймворков и библиотек</h2>
+		<ul>
+			<li>Meteor</li>
+			<li>Derby</li>
+			<li>React</li>
+			<li>Catberry (используется в нескольких проектах 2ГИС)</li>
+		</ul>
+	</div></section>
+
+	<section class="slide shout" id="react"><div>
+		<h2>React</h2>
+		<img src="pictures/react-logo.png">
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>React + изоморфные приложения</h2>
+		<ul>
+			<li class="next">разметка генерируется на сервере с помощью метода <code>renderToString</code> и отдается клиенту</li>
+			<li class="next">браузер загружает страницу, вызывается метод <code>render</code> и React лишь навешивает обработчики на элементы</li>
+		</ul>
+	</div></section>
+
+	<section class="slide shout" id="flux"><div>
+		<img src="pictures/flux-logo.png">
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Основные идеи Flux</h2>
+		<ul>
+			<li class="next">однонаправленный синхронный поток данных</li>
+			<li class="next">хранилища !== модели</li>
+			<li class="next">при изменении данных необходимо обновлять представление целиком</li>
+			<li class="next">dispatcher - единая точка входа и выхода всех событий</li>
+		</ul>
+	</div></section>
+
+	<section class="slide cover" id="fluxDiagram"><div>
+		<img src="pictures/flux.png">
+	</div></section>
+
+	<section class="slide component"><div>
+		<h2>Компонент</h2>
+		<pre>
+    		<code>var FeedList = React.createClass({</code>
+        	<code>  getInitialState() {</code>
+        	<code>    return {</code>
+        	<code>       items: store('feed').items</code>
+        	<code>    }</code>
+        	<code>  },</code>
+			<code>  componentDidMount() {</code>
+			<code>  	actions.loadFeeds();</code>
+			<code>  },</code>
+			<code>  render() {</code>
+			<code>    return ...;</code>
+			<code>  }</code>
+    		<code>});</code>
+		</pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Action helper</h2>
+		<pre>
+    		<code>loadFeeds() {</code>
+    		<code>  fetch(...).then(res => {</code>
+        	<code>    this.dispatch('LOAD_FEEDS_SUCCESS', res);</code>
+			<code>  });</code>
+			<code>};</code>
+		</pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Хранилище</h2>
+		<pre>
+    		<code>{</code>
+    		<code>  actions: {'LOAD_FEEDS_SUCCESS': 'onLoadItems'},</code>
+			<code>  onLoadItems(data) {</code>
+			<code>    this.items = data;</code>
+			<code>    this.emit('change');</code>
+			<code>  }</code>
+			<code>}</code>
+		</pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Реализации Flux</h2>
+		<ul>
+			<li>Flux (Facebook) – самая каноничная реализация</li>
+			<li>Fluxxor</li>
+			<li>Flummox</li>
+			<li>Fluxible (Yahoo)</li>
+			<li>Alt</li>
+			<li>Reflux (не совсем Flux, вносит новые идеи и решения)</li>
+			<li>...</li>
+		</ul>
+	</div></section>
+
+	<section class="slide shout"><div>
+		<h2>Пример изоморфного приложения</h2>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Принцип</h2>
+		<ol>
+			<li class="next">запрос приходит на сервер</li>
+			<li class="next">срабатывает серверный роутер</li>
+			<li class="next"><b>рендерим компонент на сервере</b></li>
+			<li class="next">отдаём данные клиенту</li>
+			<li class="next">страница загружается и запускается клиентский роутер</li>
+			<li class="next"><b>рендерим компонент на клиенте</b></li>
+		</ol>
+	</div></section>
+
+	<section class="slide shout"><div>
+		<h2>Как отрендерить компонент правильно?</h2>
+	</div></section>
+
+	<section class="slide shout"><div>
+		<h2>Сначала заполнить хранилища!</h2>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Action helper</h2>
+		<pre>
+    		<code>loadFeeds() {</code>
+    		<code><mark>  return</mark> fetch(...).then(res => {</code>
+        	<code>    this.dispatch('LOAD_FEEDS_SUCCESS', res);</code>
+        	<code><mark>    return res;</mark></code>
+			<code>  });</code>
+			<code>};</code>
+		</pre>
+	</div></section>
+
+	<section class="slide" id="componentPiece"><div>
+		<h2>Компонент</h2>
+		<pre>
+    		<code>var FeedList = React.createClass({</code>
+    		<code>  statics: {</code>
+        	<code><mark>    getInitialData(actions) {</mark></code>
+        	<code><mark>      return {</mark></code>
+			<code><mark>        feed: actions.loadFeeds()</mark></code>
+        	<code><mark>      }</mark></code>
+        	<code><mark>    }</mark></code>
+        	<code>  },</code>
+			<code>  ...</code>
+    		<code>});</code>
+		</pre>
+	</div></section>
+
+	<section class="slide router"><div>
+		<h2>Роутер (сервер)</h2>
+		<pre>
+    		<code>router.run((Handler, state) => {</code>
+    		<code><mark>  getInitialData(state).then(data => {</mark></code>
+        	<code>    var component = React.renderToString(&lt;Handler/&gt;);</code>
+        	<code>    var storesInitialDataScript = </code>
+			<code>      `var storesInitialData = ${JSON.stringify(data)};`;</code>
+        	<code>    res.send(React.renderToStaticMarkup(&lt;Layout</code>
+        	<code>      storesInitialDataScript={storesInitialDataScript}</code>
+        	<code>      component={component}/&gt;));</code>
+        	<code><mark>  });</mark></code>
+    		<code>});</code>
+		</pre>
+	</div></section>
+
+	<section class="slide router"><div>
+		<h2>Роутер (сервер)</h2>
+		<pre>
+    		<code>router.run((Handler, state) => {</code>
+    		<code>  getInitialData(state).then(data => {</code>
+        	<code><mark>    var component = React.renderToString(&lt;Handler/&gt;);</mark></code>
+        	<code>    var storesInitialDataScript = </code>
+			<code>      `var storesInitialData = ${JSON.stringify(data)};`;</code>
+        	<code>    res.send(React.renderToStaticMarkup(&lt;Layout</code>
+        	<code>      storesInitialDataScript={storesInitialDataScript}</code>
+        	<code>      component={component}/&gt;));</code>
+        	<code>  });</code>
+    		<code>});</code>
+		</pre>
+	</div></section>
+
+	<section class="slide component"><div>
+		<h2>Компонент</h2>
+		<pre>
+    		<code>var FeedList = React.createClass({</code>
+    		<code>  statics: {</code>
+        	<code>    getInitialData(actions) {</code>
+        	<code>      return { feed: actions.loadFeeds() }</code>
+        	<code>    }</code>
+        	<code>  },</code>
+			<code><mark>  getInitialState() {</mark></code>
+        	<code><mark>    return { items: store('feed').items }</mark></code>
+        	<code><mark>  },</mark></code>
+			<code>  componentDidMount() {</code>
+			<code>  	actions.loadFeeds();</code>
+			<code>  },</code>
+			<code>  ...</code>
+    		<code>});</code>
+		</pre>
+	</div></section>
+
+	<section class="slide router"><div>
+		<h2>Роутер (сервер)</h2>
+		<pre>
+    		<code>router.run((Handler, state) => {</code>
+    		<code>  getInitialData(state).then(data => {</code>
+        	<code>    var component = React.renderToString(&lt;Handler/&gt;);</code>
+        	<code><mark>    var storesInitialDataScript = </mark></code>
+			<code><mark>      `var storesInitialData = ${JSON.stringify(data)};`;</mark></code>
+        	<code>    res.send(React.renderToStaticMarkup(&lt;Layout</code>
+        	<code>      storesInitialDataScript={storesInitialDataScript}</code>
+        	<code>      component={component}/&gt;));</code>
+        	<code>  });</code>
+    		<code>});</code>
+		</pre>
+	</div></section>
+
+	<section class="slide router"><div>
+		<h2>Роутер (сервер)</h2>
+		<pre>
+    		<code>router.run((Handler, state) => {</code>
+    		<code>  getInitialData(state).then(data => {</code>
+        	<code>    var component = React.renderToString(&lt;Handler/&gt;);</code>
+        	<code>    var storesInitialDataScript = </code>
+			<code>      `var storesInitialData = ${JSON.stringify(data)};`;</code>
+        	<code><mark>    res.send(React.renderToStaticMarkup(&lt;Layout</mark></code>
+        	<code><mark>      storesInitialDataScript={storesInitialDataScript}</mark></code>
+        	<code><mark>      component={component}/&gt;));</mark></code>
+        	<code>  });</code>
+    		<code>});</code>
+		</pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Роутер (клиент)</h2>
+		<pre>
+    		<code><mark>Object.keys(window.storesInitialData)</mark></code>
+    		<code><mark>.forEach(storeName => flux</mark></code>
+    		<code><mark>  .store(storeName)</mark></code>
+    		<code><mark>  .initData(storesInitialData[storeName]));</mark></code>
+        	<code>router.run(Handler => React.render(&lt;Handler/&gt;,</code>
+        	<code>  document.getElementById('app')));</code>
+		</pre>
+	</div></section>
+
+		<section class="slide"><div>
+		<h2>Роутер (клиент)</h2>
+		<pre>
+    		<code>Object.keys(window.storesInitialData)</code>
+    		<code>.forEach(storeName => flux</code>
+    		<code>  .store(storeName)</code>
+    		<code>  .initData(storesInitialData[storeName]));</code>
+        	<code><mark>router.run(Handler => React.render(&lt;Handler/&gt;,</mark></code>
+        	<code><mark>  document.getElementById('app')));</mark></code>
+		</pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Компонент</h2>
+		<pre>
+    		<code>var FeedList = React.createClass({</code>
+			<code>  getInitialState() {</code>
+        	<code>    return {</code>
+        	<code>      items: store('feed').items</code>
+        	<code>    }</code>
+        	<code>  },</code>
+			<code>  ...</code>
+    		<code>});</code>
+		</pre>
+	</div></section>
+
+	<section class="slide shout" id="victory"><div>
+		<img src="pictures/victory.gif"/>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Плюсы подхода</h2>
+		<ul>
+			<li class="next">список необходимых данные задаётся внутри компонента</li>
+			<li class="next">Flux-way</li>
+			<li class="next">данные запрашиваются всего 1 раз</li>
+			<li class="next">не зависит от реализации Flux</li>
+		</ul>
+	</div></section>
+
+	<section class="slide cover"><div>
+		<img src="pictures/isomorphic-examples.jpg" width="100%"/>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Спасибо</h2>
+		<p>
+			<b>Александр Иванцов</b><br>
+			Twitter: <a href="https://twitter.com/alex_ivantsov" target="_blank">@alex_ivantsov</a><br>
+			Блог: <a href="http://aivantsov.com" target="_blank">aivantsov.com</a>
+		</p>
+		<p>
+			Презентация: <a href="" target="_blank"></a><br>
+			Пример приложения: <a href="" target="_blank"></a><br>
+			Сайт с другими примерами: <a href="http://react.rocks/tag/isomorphic" target="_blank">react.rocks/tag/isomorphic</a>
+		</p>
+	</div></section>
+
+	<div class="progress"><div></div></div>
+	<script src="node_modules/shower-core/shower.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+#intro {
+	background-color: white;
+}
+
+#intro h2 {
+	margin: 130px 0 0;
+	text-align: center;
+	font-size: 70px;
+}
+
+#intro p {
+	margin: 80px 0 0;
+	text-align: center;
+	font-size: 32px;
+}
+
+#isomophicDiagram h2 {
+	margin: 0;
+}
+
+#isomophicDiagram img {
+	height: 500px;
+	margin-left: 50%;
+	transform: translateX(-50%);
+}
+
+#react h2 {
+	margin-top: 50px;
+	transform: translateY(0);
+}
+
+#react img {
+	width: 300px;
+	margin-left: 50%;
+	transform: translateX(-50%);
+}
+
+#flux {
+	background-color: #eee;
+}
+
+#flux img {
+	margin-left: 50%;
+	transform: translateX(-50%);
+}
+
+#fluxDiagram {
+	background-color: #4e4d4f;
+}
+
+#fluxDiagram img {
+	width: 100%;
+	transform: translateY(50%);
+}
+
+#componentPiece pre {
+	font-size: 20px;
+}
+
+#victory img {
+	margin: 100px 15%;
+}
+
+.component pre {
+	font-size: 14px;
+}
+
+.router pre {
+	font-size: 20px;
+}

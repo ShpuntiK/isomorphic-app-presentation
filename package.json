@@ -1,0 +1,21 @@
+{
+  "name": "isomorphic-apps",
+  "description": "Presentation about creating isomorphic apps with React and Flux",
+  "version": "0.0.1",
+  "author": {
+    "name": "Alexander Ivantsov <alexivantsov@ya.ru>",
+    "url": "http://aivantsov.com/"
+  },
+  "licenses": "MIT",
+  "keywords": [
+    "isomorphic",
+    "react",
+    "flux",
+    "react-router"
+  ],
+  "dependencies": {
+    "shower-bright": "^1.0.11",
+    "shower-core": "^1.0.7",
+    "shower-ribbon": "^1.0.11"
+  }
+}
