@@ -53,18 +53,10 @@
 	transform: translateY(50%);
 }
 
-#componentPiece pre {
+#fullComponent pre {
 	font-size: 20px;
 }
 
 #victory img {
 	margin: 100px 15%;
-}
-
-.component pre {
-	font-size: 14px;
-}
-
-.router pre {
-	font-size: 20px;
 }
